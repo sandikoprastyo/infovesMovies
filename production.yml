@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  app:
+    image: my-react-app:latest
+    environment:
+      NODE_ENV: production
+    ports:
+      - "4173:4173"

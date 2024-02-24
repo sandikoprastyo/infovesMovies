@@ -17,8 +17,7 @@ COPY . .
 RUN yarn build
 
 # Expose a port to communicate with the React app
-EXPOSE 5173
-
+EXPOSE 4173
 
 # Start your React app
-CMD ["yarn", "dev"]
+CMD ["yarn", "preview"]
