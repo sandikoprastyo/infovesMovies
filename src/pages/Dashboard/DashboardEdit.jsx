@@ -116,6 +116,7 @@ export default function DashboardEdit() {
       </div>
       <Form
         err={err}
+        setErr={setErr}
         data={location.state}
         refForm={refForm}
         genreStatus={genreStatus}

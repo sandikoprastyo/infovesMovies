@@ -78,7 +78,11 @@ export default function Form({
         <textarea
           id='summary'
           rows='3'
-          defaultValue={data?.summary}
+          defaultValue={
+            data?.summary.length <= 100
+              ? data?.summary
+              : data.summary.substring(0, 100) + '...'
+          }
           onChange={(e) => {
             setErr({ ...err, summary: '' });
             setLengSummary(e.target.value.length);
