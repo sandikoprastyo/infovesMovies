@@ -27,11 +27,10 @@ export default function Form({
         </label>
         <input
           type='text'
-          required
           id='title'
           onChange={() => setErr({ ...err, title: '' })}
           defaultValue={data?.title}
-          className={`appearance-none relative ring-1 mt-2 block w-full px-3 py-2 border placeholder-gray-500 bg-[#EEEEEE] text-gray-900 rounded-md focus:outline-none  focus:z-10 sm:text-sm mb-2 ${
+          className={`appearance-none relative ring-1 mt-2 block w-full px-3 py-2 border placeholder-gray-500 bg-[#EEEEEE] text-gray-500 rounded-md focus:outline-none focus:z-10 sm:text-sm mb-2 ${
             err.title
               ? 'focus:ring-red-500 focus:border-red-500 border-red-500 ring-1'
               : 'focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 ring-1'
@@ -54,10 +53,9 @@ export default function Form({
         <input
           type='text'
           id='director'
-          required
           onChange={() => setErr({ ...err, director: '' })}
           defaultValue={data?.director}
-          className={`appearance-none relative ring-1 mt-2 block w-full px-3 py-2 border placeholder-gray-500 bg-[#EEEEEE] text-gray-900 rounded-md focus:outline-none  focus:z-10 sm:text-sm mb-2 ${
+          className={`appearance-none relative ring-1 mt-2 block w-full px-3 py-2 border placeholder-gray-500 bg-[#EEEEEE] text-gray-500 rounded-md focus:outline-none  focus:z-10 sm:text-sm mb-2 ${
             err.director
               ? 'focus:ring-red-500 focus:border-red-500 border-red-500 ring-1'
               : 'focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 ring-1'
@@ -80,13 +78,12 @@ export default function Form({
         <textarea
           id='summary'
           rows='3'
-          required
           defaultValue={data?.summary}
           onChange={(e) => {
             setErr({ ...err, summary: '' });
             setLengSummary(e.target.value.length);
           }}
-          className={`appearance-none relative ring-1 mt-2 block w-full px-3 py-2 border placeholder-gray-500 bg-[#EEEEEE] text-gray-900 rounded-md focus:outline-none focus:z-10 sm:text-sm mb-2 max-h-48 ${
+          className={`appearance-none relative ring-1 mt-2 block w-full px-3 py-2 border placeholder-gray-500 bg-[#EEEEEE] text-gray-500 rounded-md focus:outline-none focus:z-10 sm:text-sm mb-2 max-h-48 ${
             lengSummary === 100 || err.summary
               ? 'focus:ring-red-500 focus:border-red-500 border-red-500 ring-1 '
               : 'focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 ring-1'
