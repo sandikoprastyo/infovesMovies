@@ -2,7 +2,7 @@
 export default function Form({ data, refForm,  handleGenreClick, genreStatus }) {
   return (
     <form
-      className='space-y-4 container bg-[#EEEEEE] rounded-lg p-11 text-start'
+      className='space-y-4 container bg-[#EEEEEE] rounded-lg p-11 text-start shadow-2xl shadow-[#EEEEEE]-500/50'
       ref={refForm}
       onSubmit={(e) => {
         e.preventDefault();
@@ -11,7 +11,7 @@ export default function Form({ data, refForm,  handleGenreClick, genreStatus }) 
       <div>
         <label
           htmlFor='title'
-          className='block text-sm font-medium text-gray-700'
+          className='block text-sm font-bold text-gray-700'
         >
           Title
         </label>
@@ -19,14 +19,14 @@ export default function Form({ data, refForm,  handleGenreClick, genreStatus }) 
           type='text'
           id='title'
           defaultValue={data?.title}
-          className='appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 bg-[#EEEEEE] text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm mb-2'
+          className='appearance-none relative ring-1 block w-full px-3 py-2 mt-2 border border-gray-300 placeholder-gray-500 bg-[#EEEEEE] text-gray-900 rounded-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm mb-2'
           placeholder='Enter title'
         />
       </div>
       <div>
         <label
           htmlFor='director'
-          className='block text-sm font-medium text-gray-700'
+          className='block text-sm font-bold text-gray-700'
         >
           Director
         </label>
@@ -34,14 +34,14 @@ export default function Form({ data, refForm,  handleGenreClick, genreStatus }) 
           type='text'
           id='director'
           defaultValue={data?.director}
-          className='appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 bg-[#EEEEEE] text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm mb-2'
+          className='appearance-none relative ring-1 mt-2 block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 bg-[#EEEEEE] text-gray-900 rounded-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm mb-2'
           placeholder='Enter director'
         />
       </div>
       <div>
         <label
           htmlFor='summary'
-          className='block text-sm font-medium text-gray-700'
+          className='block text-sm font-bold text-gray-700'
         >
           Summary
         </label>
@@ -49,7 +49,7 @@ export default function Form({ data, refForm,  handleGenreClick, genreStatus }) 
           id='summary'
           rows='3'
           defaultValue={data?.summary}
-          className='appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 bg-[#EEEEEE] text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm mb-2'
+          className='appearance-none relative ring-1 mt-2 block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 bg-[#EEEEEE] text-gray-900 rounded-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm mb-2'
           placeholder='Enter summary'
           maxLength={100}
         ></textarea>
@@ -57,7 +57,7 @@ export default function Form({ data, refForm,  handleGenreClick, genreStatus }) 
       <div>
         <label
           htmlFor='genre'
-          className='block text-sm font-medium text-gray-700'
+          className='block text-sm font-bold text-gray-700'
         >
           Genre
         </label>
@@ -68,8 +68,8 @@ export default function Form({ data, refForm,  handleGenreClick, genreStatus }) 
               onClick={() => handleGenreClick(el.name)}
               className={`py-2 px-4 rounded-lg focus:outline-none focus:ring-2  focus:ring-opacity-50 ${
                 el.check
-                  ? 'bg-cyan-500 text-white focus:ring-cyan-600'
-                  : 'bg-pink-500 text-white focus:ring-pink-600'
+                  ? 'bg-cyan-500 text-white focus:ring-cyan-600 shadow-lg shadow-cyan-500/65'
+                  : 'bg-pink-500 text-white focus:ring-pink-600 shadow-lg shadow-pink-500/65'
               }`}
             >
               {el.name}

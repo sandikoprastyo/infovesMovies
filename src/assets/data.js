@@ -66,4 +66,8 @@ export const genreData = [
     name: 'Adventurer',
     check: false,
   },
+  {
+    name: 'Thrillers',
+    check: false,
+  },
 ];

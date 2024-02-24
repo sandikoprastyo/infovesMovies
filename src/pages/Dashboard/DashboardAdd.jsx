@@ -54,6 +54,7 @@ export default function DashboardAdd() {
             onClick={handleSave}
             className='bg-cyan-500 shadow-lg shadow-cyan-500/65 text-white py-2 px-4 rounded-full hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:ring-opacity-50'
           >
+            
             {loading ? 'Loading...' : 'Save'}
           </button>
         </div>
