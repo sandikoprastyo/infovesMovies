@@ -1,8 +1,18 @@
+import { useState } from 'react';
 
-export default function Form({ data, refForm,  handleGenreClick, genreStatus }) {
+export default function Form({
+  err,
+  setErr,
+  data,
+  refForm,
+  handleGenreClick,
+  genreStatus,
+}) {
+  const [lengSummary, setLengSummary] = useState();
+
   return (
     <form
-      className='space-y-4 container bg-[#EEEEEE] rounded-lg p-11 text-start shadow-2xl shadow-[#EEEEEE]-500/50'
+      className='font-mono space-y-4 container bg-[#EEEEEE] rounded-lg p-11 text-start shadow-2xl shadow-[#EEEEEE]-500/50'
       ref={refForm}
       onSubmit={(e) => {
         e.preventDefault();
@@ -17,11 +27,22 @@ export default function Form({ data, refForm,  handleGenreClick, genreStatus }) 
         </label>
         <input
           type='text'
+          required
           id='title'
+          onChange={() => setErr({ ...err, title: '' })}
           defaultValue={data?.title}
-          className='appearance-none relative ring-1 block w-full px-3 py-2 mt-2 border border-gray-300 placeholder-gray-500 bg-[#EEEEEE] text-gray-900 rounded-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm mb-2'
+          className={`appearance-none relative ring-1 mt-2 block w-full px-3 py-2 border placeholder-gray-500 bg-[#EEEEEE] text-gray-900 rounded-md focus:outline-none  focus:z-10 sm:text-sm mb-2 ${
+            err.title
+              ? 'focus:ring-red-500 focus:border-red-500 border-red-500 ring-1'
+              : 'focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 ring-1'
+          }`}
           placeholder='Enter title'
         />
+        {err?.title && (
+          <p className='text-start py-2 -mt-3 text-red-500 text-xs'>
+            {err?.title}
+          </p>
+        )}
       </div>
       <div>
         <label
@@ -33,10 +54,21 @@ export default function Form({ data, refForm,  handleGenreClick, genreStatus }) 
         <input
           type='text'
           id='director'
+          required
+          onChange={() => setErr({ ...err, director: '' })}
           defaultValue={data?.director}
-          className='appearance-none relative ring-1 mt-2 block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 bg-[#EEEEEE] text-gray-900 rounded-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm mb-2'
+          className={`appearance-none relative ring-1 mt-2 block w-full px-3 py-2 border placeholder-gray-500 bg-[#EEEEEE] text-gray-900 rounded-md focus:outline-none  focus:z-10 sm:text-sm mb-2 ${
+            err.director
+              ? 'focus:ring-red-500 focus:border-red-500 border-red-500 ring-1'
+              : 'focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 ring-1'
+          }`}
           placeholder='Enter director'
         />
+        {err?.director && (
+          <p className='text-start py-2 -mt-3 text-red-500 text-xs'>
+            {err?.director}
+          </p>
+        )}
       </div>
       <div>
         <label
@@ -48,11 +80,25 @@ export default function Form({ data, refForm,  handleGenreClick, genreStatus }) 
         <textarea
           id='summary'
           rows='3'
+          required
           defaultValue={data?.summary}
-          className='appearance-none relative ring-1 mt-2 block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 bg-[#EEEEEE] text-gray-900 rounded-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm mb-2'
+          onChange={(e) => {
+            setErr({ ...err, summary: '' });
+            setLengSummary(e.target.value.length);
+          }}
+          className={`appearance-none relative ring-1 mt-2 block w-full px-3 py-2 border placeholder-gray-500 bg-[#EEEEEE] text-gray-900 rounded-md focus:outline-none focus:z-10 sm:text-sm mb-2 max-h-48 ${
+            lengSummary === 100 || err.summary
+              ? 'focus:ring-red-500 focus:border-red-500 border-red-500 ring-1 '
+              : 'focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 ring-1'
+          }`}
           placeholder='Enter summary'
           maxLength={100}
-        ></textarea>
+        />
+        {err?.summary && (
+          <p className='text-start py-2 -mt-3 text-red-500 text-xs'>
+            {err?.summary}
+          </p>
+        )}
       </div>
       <div>
         <label
@@ -61,6 +107,11 @@ export default function Form({ data, refForm,  handleGenreClick, genreStatus }) 
         >
           Genre
         </label>
+        {err?.genre && (
+          <p className='text-start py-2 -mt-3 text-red-500 text-xs'>
+            {err?.genre}
+          </p>
+        )}
         <div className='flex flex-wrap gap-2 mt-2'>
           {genreStatus.map((el, i) => (
             <button

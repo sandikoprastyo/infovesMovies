@@ -15,7 +15,7 @@ export default function Header() {
   };
 
   return (
-    <div className='fixed top-0 left-0 w-full z-50 mb-6'>
+    <div className='fixed top-0 left-0 w-full z-50 mb-6 font-mono'>
       <nav className='bg-[#222831] shadow-lg shadow-[#222831]-500/100'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='flex justify-between items-center h-16'>

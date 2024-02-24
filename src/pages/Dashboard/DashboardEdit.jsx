@@ -11,6 +11,12 @@ export default function DashboardEdit() {
   const [loading, setLoading] = useState(false);
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [genreStatus, setGenreStatus] = useState(genreData);
+  const [err, setErr] = useState({
+    title: '',
+    director: '',
+    summary: '',
+    genre: '',
+  });
 
   useEffect(() => {
     if (!location.state) return navigate('/dashboard');
@@ -55,7 +61,6 @@ export default function DashboardEdit() {
   };
 
   const handleUpdate = () => {
-    setLoading(true);
     const refForms = refForm.current.elements;
     const id = location.state.id;
     const title = refForms.title.value;
@@ -63,22 +68,31 @@ export default function DashboardEdit() {
     const summary = refForms.summary.value;
     const checkedGenres = genreStatus.filter((genre) => genre.check === true);
     const genre = checkedGenres.map((genre) => genre.name);
-    const newData = { id, title, summary, director, genre };
-    const dataId = moviesData.find((el) => el.id === location.state.id);
-    dataId.title = newData.title;
-    dataId.director = newData.director;
-    dataId.summary = newData.summary;
-    dataId.genre = newData.genre;
+    
+    if (!title) return setErr({ title: 'title is required' });
+    if (!director) return setErr({ director: 'director is required' });
+    if (!summary) return setErr({ summary: 'summary is required' });
+    if (!genre.length) return setErr({ genre: 'genre is required' });
+    
+    setLoading(true);
+    if (title && director && summary && genre) {
+      const newData = { id, title, summary, director, genre };
+      const dataId = moviesData.find((el) => el.id === location.state.id);
+      dataId.title = newData.title;
+      dataId.director = newData.director;
+      dataId.summary = newData.summary;
+      dataId.genre = newData.genre;
 
-    setTimeout(() => {
-      setLoading(false);
-      navigate('/dashboard');
-    }, 500);
+      setTimeout(() => {
+        setLoading(false);
+        navigate('/dashboard');
+      }, 500);
+    }
   };
 
   return (
     <>
-      <div className='container mx-auto mt-9 p-5'>
+      <div className='container mx-auto mt-9 p-5 font-mono'>
         <div className='flex justify-end space-x-4'>
           <button
             onClick={() => navigate('/dashboard')}
@@ -101,6 +115,7 @@ export default function DashboardEdit() {
         </div>
       </div>
       <Form
+        err={err}
         data={location.state}
         refForm={refForm}
         genreStatus={genreStatus}

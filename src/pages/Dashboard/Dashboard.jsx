@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { moviesData } from '../../assets/data';
 import { useNavigate } from 'react-router-dom';
+import noData from '../../assets/no_data.svg';
 
 export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -11,12 +12,12 @@ export default function Dashboard() {
   });
 
   return (
-    <div className='container mx-auto mt-9 p-5'>
+    <div className='container mx-auto mt-9 p-5 font-mono'>
       <h1 className='text-3xl font-bold mb-5'>Movies Collection</h1>
       <input
         type='text'
         placeholder='Search by title...'
-        className='border text-gray-900 bg-[#EEEEEE] border-gray-300 px-4 py-2 rounded-md mb-5 w-full 
+        className='font-mono border text-gray-900 bg-[#EEEEEE] border-gray-300 px-4 py-2 rounded-md mb-5 w-full 
         focus:border-cyan-500 focus:ring-cyan-500 focus:ring-2 focus:ring-offset-cyan-500'
         onChange={(e) => setSearchTerm(e.target.value)}
       />
@@ -35,8 +36,8 @@ export default function Dashboard() {
                 isHovered === index ? 'text-cyan-500' : 'text-gray-900'
               } `}
             >
-              {movie.title.length > 20
-                ? movie.title.substring(0, 19) + '..'
+              {movie.title.length > 17
+                ? movie.title.substring(0, 17) + '..'
                 : movie.title}
             </h2>
             <p
@@ -49,7 +50,7 @@ export default function Dashboard() {
                 : movie.director}
             </p>
             {/* <p className='text-justify text-gray-600 mb-2'>{movie.summary}</p> */}
-            <p className='text-end bottom-0 right-0'>
+            <p className='text-end bottom-0 right-0 pt-16'>
               {Array.isArray(movie.genre) && movie.genre.length >= 2 ? (
                 <button
                   className={`py-2 px-4 rounded-lg  bg-pink-500 text-white shadow-lg shadow-pink-500/65
@@ -71,15 +72,16 @@ export default function Dashboard() {
       </div>
 
       {!filteredMovies.length && (
-        <div className='flex text-center justify-center w-full'>
-          No movies found.
+        <div className='flex flex-col mt-10 text-center justify-center items-center w-full'>
+          <img src={noData} alt='img' width={300} height={300} />
+          <p className='pt-5 font-bold'>No movies found.</p>
         </div>
       )}
 
       <div className='fixed bottom-5 right-5'>
         <button
           onClick={() => navigate('/dashboard/add')}
-          className='bg-cyan-600 hover:shadow-cyan-500/65 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-full hover:shadow-lg
+          className='shadow-cyan-500/65 bg-cyan-500 text-white font-bold py-2 px-4 rounded-full shadow-lg
            focus:outline-none focus:ring-2 focus:ring-cyan focus:ring-opacity-50
           '
         >
