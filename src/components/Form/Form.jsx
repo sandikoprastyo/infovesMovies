@@ -81,7 +81,7 @@ export default function Form({
           defaultValue={
             data?.summary.length <= 100
               ? data?.summary
-              : data.summary.substring(0, 100) + '...'
+              : data?.summary.substring(0, 100) + '...'
           }
           onChange={(e) => {
             setErr({ ...err, summary: '' });
