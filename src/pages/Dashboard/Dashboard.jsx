@@ -22,17 +22,27 @@ export default function Dashboard() {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
 
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 shadow-lg'>
         {filteredMovies.map((movie, index) => (
           <div
             key={movie.id}
             onClick={() => navigate(`/dashboard/${movie.id}`, { state: movie })}
             onMouseEnter={() => setIsHovered(index)}
             onMouseLeave={() => setIsHovered(false)}
-            className='bg-[#EEEEEE] rounded-lg shadow-lg hover:shadow-2xl hover:shadow-cyan-500/65 p-5 cursor-pointer hover:ring-4 hover:ring-cyan-600 flex flex-col justify-between'
+            className='bg-[#EEEEEE] rounded-lg shadow-lg hover:shadow-2xl hover:shadow-cyan-500/65 p-0 cursor-pointer hover:ring-4 hover:ring-cyan-600 flex flex-col justify-between
+            transition-transform duration-500 transform hover:scale-105
+            '
           >
+            <img
+              alt='img'
+              src={`${movie.image}`}
+              className='rounded-md rounded-b-sm object-cover h-full w-screen mb-5 shadow-lg shadow-gray-700/50 '
+              style={{ maxWidth: '100%' }}
+            />
+            <div className='absolute rounded-lg inset-0 bg-gradient-to-r from-transparent to-black opacity-0 hover:opacity-30 transition-opacity duration-300'></div>
+
             <h2
-              className={`capitalize text-start  font-bold text-xl mb-2 ${
+              className={`p-2 capitalize text-start  font-bold text-xl mb-1 ${
                 isHovered === index ? 'text-cyan-500' : 'text-gray-900'
               } `}
             >
@@ -41,7 +51,7 @@ export default function Dashboard() {
                 : movie.title}
             </h2>
             <p
-              className={`capitalize text-start mb-2 font-semibold ${
+              className={`px-2 capitalize text-start mb-2 font-semibold ${
                 isHovered === index ? 'text-cyan-500' : 'text-gray-900'
               }`}
             >
@@ -50,7 +60,7 @@ export default function Dashboard() {
                 : movie.director}
             </p>
             {/* <p className='text-justify text-gray-600 mb-2'>{movie.summary}</p> */}
-            <p className='text-end bottom-0 right-0 pt-16'>
+            <p className=' p-2 text-end bottom-0 right-0 pt-16'>
               {Array.isArray(movie.genre) && movie.genre.length >= 2 ? (
                 <button
                   className={`py-2 px-4 rounded-lg  bg-pink-500 text-white shadow-lg shadow-pink-500/65

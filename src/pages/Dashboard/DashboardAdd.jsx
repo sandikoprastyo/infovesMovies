@@ -5,6 +5,7 @@ import { genreData, moviesData } from '../../assets/data';
 
 export default function DashboardAdd() {
   const refForm = useRef();
+  const maxSize = 1024 * 1024;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState({
@@ -12,8 +13,10 @@ export default function DashboardAdd() {
     director: '',
     summary: '',
     genre: '',
+    image: '',
   });
   const [genreStatus, setGenreStatus] = useState(genreData);
+  const [previewImage, setPreviewImage] = useState();
 
   const handleGenreClick = (genreName) => {
     const updatedGenreStatus = genreStatus.map((genre) => {
@@ -34,22 +37,72 @@ export default function DashboardAdd() {
     const title = refForms.title.value;
     const director = refForms.director.value;
     const summary = refForms.summary.value;
+    const image = previewImage;
     const checkedGenres = genreStatus.filter((genre) => genre.check === true);
     const genre = checkedGenres.map((genre) => genre.name);
-    
+
     if (!title) return setErr({ title: 'title is required' });
     if (!director) return setErr({ director: 'director is required' });
     if (!summary) return setErr({ summary: 'summary is required' });
+    if (!image) return setErr({ image: 'image is required' });
     if (!genre.length) return setErr({ genre: 'genre is required' });
-    
+
     setLoading(true);
     if (title && director && summary && genre) {
-      const newData = { id, title, summary, director, genre };
+      const newData = { id, title, summary, director, genre, image };
       moviesData.push(newData);
       setTimeout(() => {
         setLoading(false);
         navigate('/dashboard');
       }, 500);
+    }
+  };
+
+  const handleImageUpload = (event) => {
+    setErr({ ...err, image: '' });
+    const file = event?.target?.files?.[0];
+    const allowedFormats = ['image/jpeg', 'image/png', 'image/jpg'];
+    const maxwidth = 2500;
+    const maxheight = 2500;
+
+    if (file) {
+      if (!allowedFormats.includes(file.type)) {
+        setErr({ image: 'format image must be jpg/jpeg/png' });
+        event.target.value = '';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = new Image();
+        img.src = e.target.result;
+
+        img.onload = function () {
+          const width = img.width;
+          const height = img.height;
+
+          if (width > maxwidth || height > maxheight) {
+            setErr({
+              image: `Image size cannot be larger than ${maxwidth}x${maxheight}`,
+            });
+            event.target.value = '';
+            return;
+          }
+
+          if (file.size > maxSize) {
+            setErr({
+              image: `Image size cannot be larger than ${Math.floor(
+                (maxSize * 24) / 8 / (1024 * 1024),
+              )} MB`,
+            });
+            event.target.value = '';
+            return;
+          }
+
+          setPreviewImage(e.target.result);
+        };
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -76,6 +129,10 @@ export default function DashboardAdd() {
         setErr={setErr}
         refForm={refForm}
         genreStatus={genreStatus}
+        maxSize={maxSize}
+        previewImage={previewImage}
+        setPreviewImage={setPreviewImage}
+        handleImageUpload={handleImageUpload}
         handleGenreClick={handleGenreClick}
       />
     </>
