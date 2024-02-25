@@ -35,7 +35,11 @@ export default function DashboardEdit() {
   const handleDelete = () => {
     setLoadingDelete(true);
     const dataId = location.state.id;
-    const indexToDelete = moviesData.findIndex((movie) => movie.id === dataId);
+    console.log(dataId)
+    console.log(moviesData)
+    
+    const indexToDelete = moviesData.findIndex((movie) => movie?.id === dataId);
+    console.log(indexToDelete)
 
     if (indexToDelete !== -1) {
       delete moviesData[indexToDelete];

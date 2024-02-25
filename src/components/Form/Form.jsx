@@ -79,9 +79,11 @@ export default function Form({
           id='summary'
           rows='3'
           defaultValue={
-            data?.summary.length <= 100
-              ? data?.summary
-              : data?.summary.substring(0, 100) + '...'
+            data?.summary && data.summary.length <= 100
+              ? data.summary
+              : data?.summary
+              ? data.summary.substring(0, 100) + '...'
+              : ''
           }
           onChange={(e) => {
             setErr({ ...err, summary: '' });
